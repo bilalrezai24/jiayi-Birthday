@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday +1 | Birthday</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <audio id="bgMusic" loop>
+    <source src="assets/music.mp3" type="audio/mpeg">
+  </audio>
+  <div class="bg-layer"></div>
+  <button class="music-btn" id="musicBtn" aria-label="music">♫</button>
+
+  <main class="page">
+    <section class="card">
+      <div class="kicker">🎂 Happy Birthday</div>
+      <div class="cake">
+        <div class="flame"></div>
+        <div class="candle"></div>
+        <div class="cake-top"></div>
+        <div class="cake-base"></div>
+      </div>
+      <h1>Happy Birthday<br><span class="gradient">+1</span></h1>
+      <p class="lead type-box" id="typeBox"></p>
+      <div class="countdown">
+        <div class="time-card small-card"><strong id="days">00</strong><span>Days 天</span></div>
+        <div class="time-card small-card"><strong id="hours">00</strong><span>Hours 小时</span></div>
+        <div class="time-card small-card"><strong id="minutes">00</strong><span>Minutes 分钟</span></div>
+        <div class="time-card small-card"><strong id="seconds">00</strong><span>Seconds 秒</span></div>
+      </div>
+    </section>
+  </main>
+  <div class="page-controls">
+    <a class="btn btn-soft" href="index.html">← Back</a>
+    <a class="btn btn-soft" href="index.html">Home</a>
+    <a class="btn btn-primary" href="story.html">Next →</a>
+  </div>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

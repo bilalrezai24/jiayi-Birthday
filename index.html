@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday +1</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /* Home page one-by-one animation */
+    .home-sequence .home-step {
+      opacity: 0;
+      transform: translateY(28px) scale(0.96);
+      pointer-events: none;
+    }
+
+    .home-sequence .home-step.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      animation: homeStepIn 0.85s cubic-bezier(.2,.9,.2,1) both;
+    }
+
+    @keyframes homeStepIn {
+      0% {
+        opacity: 0;
+        transform: translateY(34px) scale(0.94);
+      }
+      65% {
+        opacity: 1;
+        transform: translateY(-5px) scale(1.025);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .home-sequence .gift.show {
+      animation: giftAppear 0.95s cubic-bezier(.2,.9,.2,1) both,
+                 gentleBounce 2.1s ease-in-out infinite 1s;
+    }
+
+    @keyframes giftAppear {
+      0% {
+        opacity: 0;
+        transform: translateY(38px) scale(0.72) rotate(-8deg);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.06) rotate(3deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0);
+      }
+    }
+
+    .home-sequence h1.show {
+      animation: nameGlow 0.9s cubic-bezier(.2,.9,.2,1) both;
+    }
+
+    @keyframes nameGlow {
+      0% {
+        opacity: 0;
+        transform: scale(0.78);
+      }
+      70% {
+        opacity: 1;
+        transform: scale(1.06);
+        text-shadow: 0 15px 55px rgba(255, 79, 139, 0.28);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        text-shadow: 0 10px 35px rgba(255, 79, 139, 0.16);
+      }
+    }
+
+    .home-message {
+      display: grid;
+      gap: 7px;
+    }
+
+    .home-line {
+      display: block;
+    }
+
+    .music-invite {
+      margin-top: 24px;
+    }
+
+    .music-invite.playing {
+      animation: musicGlow 1.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes musicGlow {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.018);
+      }
+    }
+
+    /* Open Gift button hidden first */
+    .gift-open-row {
+      display: none;
+      opacity: 0;
+      transform: translateY(24px) scale(0.9);
+    }
+
+    .gift-open-row.show {
+      display: flex;
+      animation: openGiftAppear 0.85s cubic-bezier(.2,.9,.2,1) both;
+    }
+
+    @keyframes openGiftAppear {
+      0% {
+        opacity: 0;
+        transform: translateY(24px) scale(0.86);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(-4px) scale(1.04);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <audio id="bgMusic" loop>
+    <source src="assets/Music.mp3" type="audio/mpeg">
+  </audio>
+  
+
+  <div class="bg-layer"></div>
+  <button class="music-btn" id="musicBtn" aria-label="music">♫</button>
+
+  <main class="page home-sequence">
+    <section class="card">
+
+      <div class="kicker home-step" data-step="1">
+        💝  你好啊  💝
+      </div>
+
+      <div class="gift home-step" data-step="1">
+        <div class="bow"></div>
+        <div class="gift-lid"></div>
+        <div class="gift-box"></div>
+        <div class="ribbon-v"></div>
+        <div class="ribbon-h"></div>
+      </div>
+
+      <h1 class="home-step" data-step="2">
+        <span class="gradient">+1</span>
+      </h1>
+
+      <p class="lead home-message">
+        <span class="home-line home-step" data-step="5">
+          很庆幸能在最美丽的年华遇见最美丽的你
+        </span>
+
+        <span class="home-line home-step" data-step="7">
+          这是专门为你准备的小小生日宇宙，
+        </span>
+
+        <span class="home-line home-step" data-step="6">
+          
+        </span>
+      </p>
+
+      <div class="music-invite home-step" data-step="9">
+        <p>🎵 温馨提醒：佩戴耳机并播放音乐可获得最佳体验哦😊</p>
+        <p>让这一刻更浪漫。</p>
+        <button class="btn btn-soft" id="homePlayMusicBtn">Play</button>
+      </div>
+
+      <!-- This button appears only after Play is clicked -->
+      <div class="btn-row gift-open-row" id="giftOpenRow">
+        <button class="btn btn-primary" id="openGiftBtn">
+          打开礼物
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+
+ <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const steps = document.querySelectorAll(".home-step");
+
+    steps.forEach(function (step) {
+      const stepNumber = Number(step.dataset.step);
+      const delay = 400 + stepNumber * 650;
+
+      setTimeout(function () {
+        step.classList.add("show");
+      }, delay);
+    });
+
+    const playBtn = document.getElementById("homePlayMusicBtn");
+    const music = document.getElementById("bgMusic");
+    const musicBox = document.querySelector(".music-invite");
+    const musicBtn = document.getElementById("musicBtn");
+    const giftOpenRow = document.getElementById("giftOpenRow");
+
+    if (music) {
+      music.addEventListener("timeupdate", function () {
+        localStorage.setItem("birthdayMusicTime", music.currentTime.toString());
+      });
+    }
+
+    if (playBtn && music) {
+      playBtn.addEventListener("click", function () {
+        const savedTime = parseFloat(localStorage.getItem("birthdayMusicTime") || "0");
+
+        if (!isNaN(savedTime) && savedTime > 0) {
+          try {
+            music.currentTime = savedTime;
+          } catch (e) {
+            console.log("Could not restore music time");
+          }
+        }
+
+        music.play().then(function () {
+          playBtn.textContent = "Playing...";
+          musicBox.classList.add("playing");
+
+          if (musicBtn) {
+            musicBtn.textContent = "❚❚";
+          }
+
+          localStorage.setItem("birthdayMusic", "on");
+          localStorage.setItem("birthdayMusicTime", music.currentTime.toString());
+
+          setTimeout(function () {
+            giftOpenRow.classList.add("show");
+          }, 500);
+
+        }).catch(function () {
+          playBtn.textContent = "Tap Again";
+        });
+      });
+    }
+  });
+</script>
+</body>
+</html>
